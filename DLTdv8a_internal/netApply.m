@@ -1,5 +1,6 @@
-function [xypts,quality,rawNetOut]=netApply(img,net,netInfo,netType,numPts,minQ)
 
+function [xypts,quality,rawNetOut]=netApply(img,net,netInfo,netType,numPts,minQ)
+fprintf("test2");
 % function [xypts,quality,rawNetOut]=netApply(img,net,netInfo,netType,numPts,minQ)
 %
 % Apply deep learning networks to multiple images
@@ -10,7 +11,6 @@ end
 
 
 function [xyp,quality,rawNetOut] = getDetections(img,net,netInfo,netType,numPts,minQ)
-
 % multi-cropping network
 if netType==1
   rawNetOut=[]; % not implemented for multi-cropping networks yet
@@ -156,7 +156,6 @@ else
   
   % predict
   netOut=predict(net,img1);
-  
   % store raw net output (final layer only)
   rawNetOut=netOut(:,:,end);
   
@@ -164,6 +163,8 @@ else
   for j=1:size(netOut,3)-1
     
     % enforce global detection requirement
+    
+    
     netOut(:,:,j)=netOut(:,:,j).*(netOut(:,:,end)>minQ);
     
     maxQ=max(max(netOut(:,:,j)));
